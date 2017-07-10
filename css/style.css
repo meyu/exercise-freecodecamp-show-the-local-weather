@@ -1,0 +1,92 @@
+/* 為了讓物件能於畫面居中舖路 */
+html, body {
+	height: 100%;
+	color: white;
+	font-family: 'Bubbler One', sans-serif;
+}
+
+/* 微調Popover的視覺效果 */
+.popover {
+	width:100%;
+	background-color:#DCE9F8;
+}
+.popover-content {
+	padding:0;
+	background-color:#DCE9F8;
+	text-shadow: 2px 2px 5px rgba(150, 150, 150, 0.8);
+}
+
+/* 晝夜主題 */
+/* 採用 uiGradients 方案：https://uigradients.com/ */
+.day {
+	background: linear-gradient(to bottom, #64b3f4, #c2e59c); 
+}
+.night {
+	background: linear-gradient(to top, #4e4376, #2b5876); 
+}
+.flip {
+	-webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+	transform: rotate(180deg);
+}
+
+/* The switch - the box around the slider */
+/* 參考 s3school 製作 (https://www.w3schools.com/howto/howto_css_switch.asp) */
+.switch {
+  position: relative;
+  width: 60px;
+  height: 34px;
+}
+.switch input {display:none;}
+.slider {
+	border: 1px solid white;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 28px;
+  width: 28px;
+  left: 2px;
+  bottom: 2px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+.slider.round {
+  border-radius: 35px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/* after loader */
+.after-loader {
+  position: relative;
+  -webkit-animation-name: animatebottom;
+  -webkit-animation-duration: 1s;
+  animation-name: afterLoader;
+  animation-duration: 1s
+}
+
+@-webkit-keyframes afterLoader {
+  from { bottom:-100px; opacity:0 } 
+  to { bottom:0px; opacity:1 }
+}
+@keyframes afterLoader { 
+  from{ bottom:-100px; opacity:0 } 
+  to{ bottom:0; opacity:1 }
+}
+

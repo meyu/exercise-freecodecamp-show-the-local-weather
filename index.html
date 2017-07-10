@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>exercise@freeCodeCamp: Show the Local Weather</title>
+  <!--Let browser know website is optimized for mobile-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css'>
+<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Bubbler+One'>
+
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  <!-- 第一全螢幕置中區 -->
+<div class="container-fluid h-100 night">
+	<div class="h-100 d-flex justify-content-center align-items-center text-center lead">
+		
+		<!-- loader -->
+		<div id="loader">
+			<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+			<span class="sr-only">Loading...</span>
+		</div>
+		
+		<!-- error -->
+		<div id="noData" class="text-muted" hidden>
+			<i class="fa fa-wifi" aria-hidden="true"></i>
+			<span> loose connection</span>
+		</div>
+		
+				
+		<!-- 即時資訊區 -->
+		<div id="nowInfo" class="row after-loader" hidden>
+			
+			<!-- 左 -->
+			<div class="col-sm-6 col-xs-12">
+				<div id="nowSummary" style='white-space:nowrap;'></div>
+				<canvas id="iconCurrent" width="150%">...connecting...</canvas>
+			</div>
+
+			<!-- 右 -->
+			<div class="col-sm-6 col-xs-12">
+				<span id="nowHumidity"></span>&nbsp;
+				<span id="nowPrecipIntensity"></span>
+				<div id="nowCelsius" class="celsius display-2"></div>
+				<div id="nowFahrenheit" class="fahrenheit display-2" hidden></div>
+
+				<!-- 切換鈕 -->
+				<label class="switch">
+					<input type="checkbox" onchange="switchFoC(this.checked)">
+					<div class="slider round">°F&nbsp;&nbsp;°C</div>
+				</label>
+			</div>
+		
+		</div><!-- row -->
+	</div>
+</div><!-- container-fluid -->
+
+
+
+<!-- 細節資訊區 -->
+<div id="detailInfo" class="container-fluid flip night" hidden>
+	<div class="d-flex justify-content-center align-items-center text-center lead flip">
+		<div class="row">
+			
+			<!-- 地點 -->
+			<div class="h1 col-12 pb-5" style="margin:-15px 0 0 0;">
+				<a data-toggle="popover" data-placement="top" data-html="true" 
+					 data-content="<div id='urMap' style='width:100%;height:200px;'></div>
+												 <div id='urPlace' class='small text-center text-muted'></div>">
+					<i class="fa fa-map-marker"></i>
+				</a>
+			</div>
+			
+			<!-- 今日 -->
+			<div class="h1 col-12 pb-4">TODAY</div>
+			<div class="col-12">
+				<div class="col-12">
+					<canvas id="iconToday" width="100%" height="100%"></canvas>
+				</div>
+				<div class="col-12">
+					<span id="todayHumidity"></span>&nbsp;
+					<span id="todayPrecipIntensity"></span>
+					<div id="todayCelsius" class="celsius display-4"></div>
+					<div id="todayFahrenheit" class="fahrenheit display-4" hidden></div>
+				</div>
+				<div class="col-12 pt-5" id="todaySunTime"></div>
+				<div class="col-12 pb-5" id="todaySummary"></div>
+			</div>
+			
+			<!-- 數小時 -->
+			<div class="h1 col-12 pt-5 pb-5">NEXT FEW HOURS</div>
+			<div id="nextFewHours" class="row col-12 justify-content-center"></div>
+			
+			<!-- 數日 -->
+			<div class="h1 col-12 pt-5 pb-5">NEXT FEW DAYS</div>
+			<div id="nextFewDays" class="row col-12 justify-content-center"></div>	
+			<div class="text-center col-12 pb-5" id="weekSummary"></div>
+
+		</div><!-- row -->
+	</div>	
+</div><!-- container-fluid -->
+
+<!-- 置底區 -->
+<div class="fixed-bottom">
+  <div class="float-right">
+    <button type="button" class="btn btn-outline-success fa fa-github-alt" data-toggle="modal" data-target="#readme">
+    </button>
+  </div>
+</div>
+
+
+<!-- readme Modal -->
+<div class="modal fade" id="readme" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a href="https://www.freecodecamp.com/meyu" target="_blank">
+          meyu@<i class="fa fa-free-code-camp" aria-hidden="true"></i>
+        </a>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+				<script src="https://gist.github.com/meyu/d145255656b5adb4cba0ee714af5780f.js"></script>
+      </div>
+    </div>
+  </div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/js/bootstrap.min.js'></script>
+<script src='https://rawgithub.com/darkskyapp/skycons/master/skycons.js'></script>
+<script src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCJbPgOhdNGyNf5EfJNLNummupBxW3f5dU'></script>
+
+    <script src="js/index.js"></script>
+
+</body>
+</html>
